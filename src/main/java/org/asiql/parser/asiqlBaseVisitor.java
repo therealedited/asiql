@@ -1,5 +1,4 @@
 package org.asiql.parser;
-
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

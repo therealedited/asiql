@@ -17,7 +17,7 @@ public class asiqlParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, AND=3, OR=4, IS=5, NOT=6, SINCE=7, UNTIL=8, EQUALS=9, 
-		GREATER_THAN=10, LOWER_THAN=11, COMMA=12, QUOTE=13, LBRACKET=14, RBRACKET=15, 
+		GREATER_THAN=10, LESS_THAN=11, COMMA=12, QUOTE=13, LBRACKET=14, RBRACKET=15, 
 		ID=16, INT=17, DATE=18, DECIMAL=19, STR=20, WS=21;
 	public static final int
 		RULE_root = 0, RULE_const = 1, RULE_expr = 2;
@@ -38,7 +38,7 @@ public class asiqlParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, "AND", "OR", "IS", "NOT", "SINCE", "UNTIL", "EQUALS", 
-			"GREATER_THAN", "LOWER_THAN", "COMMA", "QUOTE", "LBRACKET", "RBRACKET", 
+			"GREATER_THAN", "LESS_THAN", "COMMA", "QUOTE", "LBRACKET", "RBRACKET", 
 			"ID", "INT", "DATE", "DECIMAL", "STR", "WS"
 		};
 	}
@@ -533,13 +533,10 @@ public class asiqlParser extends Parser {
 			return getRuleContext(ConstContext.class,0);
 		}
 		public TerminalNode IS() { return getToken(asiqlParser.IS, 0); }
-		public TerminalNode DATE() { return getToken(asiqlParser.DATE, 0); }
 		public TerminalNode SINCE() { return getToken(asiqlParser.SINCE, 0); }
 		public TerminalNode UNTIL() { return getToken(asiqlParser.UNTIL, 0); }
-		public TerminalNode INT() { return getToken(asiqlParser.INT, 0); }
-		public TerminalNode DECIMAL() { return getToken(asiqlParser.DECIMAL, 0); }
 		public TerminalNode GREATER_THAN() { return getToken(asiqlParser.GREATER_THAN, 0); }
-		public TerminalNode LOWER_THAN() { return getToken(asiqlParser.LOWER_THAN, 0); }
+		public TerminalNode LESS_THAN() { return getToken(asiqlParser.LESS_THAN, 0); }
 		public FunctionExpressionContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -572,10 +569,10 @@ public class asiqlParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(52);
+			setState(46);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
-			case 1:
+			switch (_input.LA(1)) {
+			case ID:
 				{
 				_localctx = new FunctionExpressionContext(_localctx);
 				_ctx = _localctx;
@@ -584,90 +581,49 @@ public class asiqlParser extends Parser {
 				setState(37);
 				match(ID);
 				setState(38);
-				((FunctionExpressionContext)_localctx).function = match(IS);
+				((FunctionExpressionContext)_localctx).function = _input.LT(1);
+				_la = _input.LA(1);
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 3488L) != 0)) ) {
+					((FunctionExpressionContext)_localctx).function = (Token)_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
 				setState(39);
 				const_();
 				}
 				break;
-			case 2:
-				{
-				_localctx = new FunctionExpressionContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(40);
-				match(ID);
-				setState(41);
-				((FunctionExpressionContext)_localctx).function = _input.LT(1);
-				_la = _input.LA(1);
-				if ( !(_la==SINCE || _la==UNTIL) ) {
-					((FunctionExpressionContext)_localctx).function = (Token)_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				setState(42);
-				match(DATE);
-				}
-				break;
-			case 3:
-				{
-				_localctx = new FunctionExpressionContext(_localctx);
-				_ctx = _localctx;
-				_prevctx = _localctx;
-				setState(43);
-				match(ID);
-				setState(44);
-				((FunctionExpressionContext)_localctx).function = _input.LT(1);
-				_la = _input.LA(1);
-				if ( !(_la==GREATER_THAN || _la==LOWER_THAN) ) {
-					((FunctionExpressionContext)_localctx).function = (Token)_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				setState(45);
-				_la = _input.LA(1);
-				if ( !(_la==INT || _la==DECIMAL) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				}
-				break;
-			case 4:
+			case T__0:
 				{
 				_localctx = new ParenthesisExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(46);
+				setState(40);
 				match(T__0);
-				setState(47);
+				setState(41);
 				expr(0);
-				setState(48);
+				setState(42);
 				match(T__1);
 				}
 				break;
-			case 5:
+			case NOT:
 				{
 				_localctx = new NegationExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(50);
+				setState(44);
 				match(NOT);
-				setState(51);
+				setState(45);
 				expr(2);
 				}
 				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(59);
+			setState(53);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -679,9 +635,9 @@ public class asiqlParser extends Parser {
 					_localctx = new InfixExpressionContext(new ExprContext(_parentctx, _parentState));
 					((InfixExpressionContext)_localctx).left = _prevctx;
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
-					setState(54);
+					setState(48);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(55);
+					setState(49);
 					((InfixExpressionContext)_localctx).conjunction = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !(_la==AND || _la==OR) ) {
@@ -692,12 +648,12 @@ public class asiqlParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(56);
+					setState(50);
 					((InfixExpressionContext)_localctx).right = expr(2);
 					}
 					} 
 				}
-				setState(61);
+				setState(55);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			}
@@ -730,7 +686,7 @@ public class asiqlParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0015?\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001\u00159\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001"+
 		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0004"+
 		"\u0001\u0011\b\u0001\u000b\u0001\f\u0001\u0012\u0001\u0001\u0001\u0001"+
@@ -738,42 +694,38 @@ public class asiqlParser extends Parser {
 		"\u0001\u0001\u0001\u0001\u0001\u0004\u0001\u001f\b\u0001\u000b\u0001\f"+
 		"\u0001 \u0003\u0001#\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
 		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0003\u00025\b\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0005"+
-		"\u0002:\b\u0002\n\u0002\f\u0002=\t\u0002\u0001\u0002\u0000\u0001\u0004"+
-		"\u0003\u0000\u0002\u0004\u0000\u0004\u0001\u0000\u0007\b\u0001\u0000\n"+
-		"\u000b\u0002\u0000\u0011\u0011\u0013\u0013\u0001\u0000\u0003\u0004I\u0000"+
-		"\u0006\u0001\u0000\u0000\u0000\u0002\"\u0001\u0000\u0000\u0000\u00044"+
-		"\u0001\u0000\u0000\u0000\u0006\u0007\u0003\u0004\u0002\u0000\u0007\b\u0005"+
-		"\u0000\u0000\u0001\b\u0001\u0001\u0000\u0000\u0000\t#\u0005\u0011\u0000"+
-		"\u0000\n#\u0005\u0014\u0000\u0000\u000b#\u0005\u0013\u0000\u0000\f#\u0005"+
-		"\u0012\u0000\u0000\r\u0010\u0005\u0011\u0000\u0000\u000e\u000f\u0005\f"+
-		"\u0000\u0000\u000f\u0011\u0005\u0011\u0000\u0000\u0010\u000e\u0001\u0000"+
-		"\u0000\u0000\u0011\u0012\u0001\u0000\u0000\u0000\u0012\u0010\u0001\u0000"+
-		"\u0000\u0000\u0012\u0013\u0001\u0000\u0000\u0000\u0013#\u0001\u0000\u0000"+
-		"\u0000\u0014\u0017\u0005\u0014\u0000\u0000\u0015\u0016\u0005\f\u0000\u0000"+
-		"\u0016\u0018\u0005\u0014\u0000\u0000\u0017\u0015\u0001\u0000\u0000\u0000"+
-		"\u0018\u0019\u0001\u0000\u0000\u0000\u0019\u0017\u0001\u0000\u0000\u0000"+
-		"\u0019\u001a\u0001\u0000\u0000\u0000\u001a#\u0001\u0000\u0000\u0000\u001b"+
-		"\u001e\u0005\u0013\u0000\u0000\u001c\u001d\u0005\f\u0000\u0000\u001d\u001f"+
-		"\u0005\u0013\u0000\u0000\u001e\u001c\u0001\u0000\u0000\u0000\u001f \u0001"+
-		"\u0000\u0000\u0000 \u001e\u0001\u0000\u0000\u0000 !\u0001\u0000\u0000"+
-		"\u0000!#\u0001\u0000\u0000\u0000\"\t\u0001\u0000\u0000\u0000\"\n\u0001"+
-		"\u0000\u0000\u0000\"\u000b\u0001\u0000\u0000\u0000\"\f\u0001\u0000\u0000"+
-		"\u0000\"\r\u0001\u0000\u0000\u0000\"\u0014\u0001\u0000\u0000\u0000\"\u001b"+
-		"\u0001\u0000\u0000\u0000#\u0003\u0001\u0000\u0000\u0000$%\u0006\u0002"+
-		"\uffff\uffff\u0000%&\u0005\u0010\u0000\u0000&\'\u0005\u0005\u0000\u0000"+
-		"\'5\u0003\u0002\u0001\u0000()\u0005\u0010\u0000\u0000)*\u0007\u0000\u0000"+
-		"\u0000*5\u0005\u0012\u0000\u0000+,\u0005\u0010\u0000\u0000,-\u0007\u0001"+
-		"\u0000\u0000-5\u0007\u0002\u0000\u0000./\u0005\u0001\u0000\u0000/0\u0003"+
-		"\u0004\u0002\u000001\u0005\u0002\u0000\u000015\u0001\u0000\u0000\u0000"+
-		"23\u0005\u0006\u0000\u000035\u0003\u0004\u0002\u00024$\u0001\u0000\u0000"+
-		"\u00004(\u0001\u0000\u0000\u00004+\u0001\u0000\u0000\u00004.\u0001\u0000"+
-		"\u0000\u000042\u0001\u0000\u0000\u00005;\u0001\u0000\u0000\u000067\n\u0001"+
-		"\u0000\u000078\u0007\u0003\u0000\u00008:\u0003\u0004\u0002\u000296\u0001"+
-		"\u0000\u0000\u0000:=\u0001\u0000\u0000\u0000;9\u0001\u0000\u0000\u0000"+
-		";<\u0001\u0000\u0000\u0000<\u0005\u0001\u0000\u0000\u0000=;\u0001\u0000"+
-		"\u0000\u0000\u0006\u0012\u0019 \"4;";
+		"\u0002\u0003\u0002/\b\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0005"+
+		"\u00024\b\u0002\n\u0002\f\u00027\t\u0002\u0001\u0002\u0000\u0001\u0004"+
+		"\u0003\u0000\u0002\u0004\u0000\u0002\u0003\u0000\u0005\u0005\u0007\b\n"+
+		"\u000b\u0001\u0000\u0003\u0004A\u0000\u0006\u0001\u0000\u0000\u0000\u0002"+
+		"\"\u0001\u0000\u0000\u0000\u0004.\u0001\u0000\u0000\u0000\u0006\u0007"+
+		"\u0003\u0004\u0002\u0000\u0007\b\u0005\u0000\u0000\u0001\b\u0001\u0001"+
+		"\u0000\u0000\u0000\t#\u0005\u0011\u0000\u0000\n#\u0005\u0014\u0000\u0000"+
+		"\u000b#\u0005\u0013\u0000\u0000\f#\u0005\u0012\u0000\u0000\r\u0010\u0005"+
+		"\u0011\u0000\u0000\u000e\u000f\u0005\f\u0000\u0000\u000f\u0011\u0005\u0011"+
+		"\u0000\u0000\u0010\u000e\u0001\u0000\u0000\u0000\u0011\u0012\u0001\u0000"+
+		"\u0000\u0000\u0012\u0010\u0001\u0000\u0000\u0000\u0012\u0013\u0001\u0000"+
+		"\u0000\u0000\u0013#\u0001\u0000\u0000\u0000\u0014\u0017\u0005\u0014\u0000"+
+		"\u0000\u0015\u0016\u0005\f\u0000\u0000\u0016\u0018\u0005\u0014\u0000\u0000"+
+		"\u0017\u0015\u0001\u0000\u0000\u0000\u0018\u0019\u0001\u0000\u0000\u0000"+
+		"\u0019\u0017\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000\u0000"+
+		"\u001a#\u0001\u0000\u0000\u0000\u001b\u001e\u0005\u0013\u0000\u0000\u001c"+
+		"\u001d\u0005\f\u0000\u0000\u001d\u001f\u0005\u0013\u0000\u0000\u001e\u001c"+
+		"\u0001\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000 \u001e\u0001\u0000"+
+		"\u0000\u0000 !\u0001\u0000\u0000\u0000!#\u0001\u0000\u0000\u0000\"\t\u0001"+
+		"\u0000\u0000\u0000\"\n\u0001\u0000\u0000\u0000\"\u000b\u0001\u0000\u0000"+
+		"\u0000\"\f\u0001\u0000\u0000\u0000\"\r\u0001\u0000\u0000\u0000\"\u0014"+
+		"\u0001\u0000\u0000\u0000\"\u001b\u0001\u0000\u0000\u0000#\u0003\u0001"+
+		"\u0000\u0000\u0000$%\u0006\u0002\uffff\uffff\u0000%&\u0005\u0010\u0000"+
+		"\u0000&\'\u0007\u0000\u0000\u0000\'/\u0003\u0002\u0001\u0000()\u0005\u0001"+
+		"\u0000\u0000)*\u0003\u0004\u0002\u0000*+\u0005\u0002\u0000\u0000+/\u0001"+
+		"\u0000\u0000\u0000,-\u0005\u0006\u0000\u0000-/\u0003\u0004\u0002\u0002"+
+		".$\u0001\u0000\u0000\u0000.(\u0001\u0000\u0000\u0000.,\u0001\u0000\u0000"+
+		"\u0000/5\u0001\u0000\u0000\u000001\n\u0001\u0000\u000012\u0007\u0001\u0000"+
+		"\u000024\u0003\u0004\u0002\u000230\u0001\u0000\u0000\u000047\u0001\u0000"+
+		"\u0000\u000053\u0001\u0000\u0000\u000056\u0001\u0000\u0000\u00006\u0005"+
+		"\u0001\u0000\u0000\u000075\u0001\u0000\u0000\u0000\u0006\u0012\u0019 "+
+		"\".5";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

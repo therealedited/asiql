@@ -1,9 +1,9 @@
 
 
+
 grammar asiql;
 
-root: expr EOF
-    ;
+root: expr EOF;
 
 const:
     INT                        # integerConstant
@@ -13,70 +13,49 @@ const:
     | INT (COMMA INT)+         # arrayIntegerConstant
     | STR (COMMA STR)+         # arrayStringConstant
     | DECIMAL (COMMA DECIMAL)+ # arrayDecimalConstant
-    ;
+;
 
 expr:
-    ID function = IS const                                      # functionExpression
-    | ID function = (SINCE|UNTIL) DATE                          # functionExpression
-    | ID function = (GREATER_THAN | LOWER_THAN) (INT | DECIMAL) # functionExpression
-    | '(' expr ')'                                              # parenthesisExpression
-    | NOT expr                                                  # negationExpression
-    | left = expr conjunction = (AND | OR) right = expr         # infixExpression
-    ;
+    ID function = (IS | SINCE | UNTIL | GREATER_THAN | LESS_THAN) const # functionExpression
+    | '(' expr ')'                                                      # parenthesisExpression
+    | NOT expr                                                          # negationExpression
+    | left = expr conjunction = (AND | OR) right = expr                 # infixExpression
+;
 
-AND: 'and'
-    ;
+AND: 'and';
 
-OR: 'or'
-    ;
+OR: 'or';
 
-IS: 'is'
-    ;
+IS: 'is';
 
-NOT: 'not'
-    ;
+NOT: 'not';
 
-SINCE: 'since'
-    ;
+SINCE: 'since';
 
-UNTIL: 'until'
-    ;
+UNTIL: 'until';
 
-EQUALS: '='
-    ;
+EQUALS: '=';
 
-GREATER_THAN: '>'
-    ;
+GREATER_THAN: '>';
 
-LOWER_THAN: '<'
-    ;
+LESS_THAN: '<';
 
-COMMA: ','
-    ;
+COMMA: ',';
 
-QUOTE: '"'
-    ;
+QUOTE: '"';
 
-LBRACKET: '['
-    ;
+LBRACKET: '[';
 
-RBRACKET: ']'
-    ;
+RBRACKET: ']';
 
-ID: [a-zA-Z_][a-zA-Z_0-9]*
-    ;
+ID: [a-zA-Z_][a-zA-Z_0-9]*;
 
-INT: [0-9]+
-    ;
+INT: ('-')? [0-9]+;
 
-DATE: INT INT '/' INT INT '/' INT INT INT INT
-    ;
+DATE: INT INT '/' INT INT '/' INT INT INT INT;
 
-DECIMAL: INT+ '.' INT+
-    ;
+DECIMAL: INT+ '.' INT+;
 
-STR: QUOTE [a-z-A-Z]+ QUOTE
-    ;
+STR: QUOTE [a-z-A-Z]+ QUOTE;
 
-WS: [ \t\n\r\f]+ -> skip
-    ;
+WS: [ \t\n\r\f]+ -> skip;

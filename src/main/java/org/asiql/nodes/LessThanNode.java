@@ -1,4 +1,4 @@
 package org.asiql.nodes;
 
-public class LessThanNode extends InfixExprNode{
+public class LessThanNode extends FunctionNode{
 }
