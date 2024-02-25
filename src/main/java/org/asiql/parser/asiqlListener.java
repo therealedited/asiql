@@ -17,6 +17,16 @@ public interface asiqlListener extends ParseTreeListener {
 	 */
 	void exitRoot(asiqlParser.RootContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link asiqlParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(asiqlParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link asiqlParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(asiqlParser.IdentifierContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code integerConstant}
 	 * labeled alternative in {@link asiqlParser#const}.
 	 * @param ctx the parse tree

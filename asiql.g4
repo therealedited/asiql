@@ -5,6 +5,7 @@ grammar asiql;
 
 root: expr EOF;
 
+identifier: ID;
 const:
     INT                        # integerConstant
     | STR                      # stringConstant
@@ -16,7 +17,7 @@ const:
 ;
 
 expr:
-    ID function = (IS | SINCE | UNTIL | GREATER_THAN | LESS_THAN) const # functionExpression
+    left = identifier function = (IS | SINCE | UNTIL | GREATER_THAN | LESS_THAN) right = const # functionExpression
     | '(' expr ')'                                                      # parenthesisExpression
     | NOT expr                                                          # negationExpression
     | left = expr conjunction = (AND | OR) right = expr                 # infixExpression

@@ -16,6 +16,12 @@ public interface asiqlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRoot(asiqlParser.RootContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link asiqlParser#identifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifier(asiqlParser.IdentifierContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code integerConstant}
 	 * labeled alternative in {@link asiqlParser#const}.
 	 * @param ctx the parse tree

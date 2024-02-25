@@ -1,4 +1,4 @@
 package org.asiql.nodes;
 
-public class SinceNode extends FunctionNode {
+public class SinceNode extends InfixExprNode {
 }

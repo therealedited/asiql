@@ -8,6 +8,12 @@ import org.asiql.parser.asiqlParser;
 import java.util.ArrayList;
 
 public class BuildAstVisitor extends asiqlBaseVisitor<ExprNode> {
+    @Override
+    public ExprNode visitIdentifier(asiqlParser.IdentifierContext ctx) {
+        IdNode node = new IdNode();
+        node.setName(ctx.ID().getText());
+        return node;
+    }
 
     @Override
     public ExprNode visitRoot(asiqlParser.RootContext ctx) {
@@ -104,7 +110,7 @@ public class BuildAstVisitor extends asiqlBaseVisitor<ExprNode> {
 
     @Override
     public ExprNode visitFunctionExpression(asiqlParser.FunctionExpressionContext ctx) {
-        FunctionNode node = null;
+        InfixExprNode node = null;
         switch(ctx.function.getType()) {
             case asiqlParser.IS -> node = new IsNode();
             case asiqlParser.SINCE -> node = new SinceNode();
@@ -113,8 +119,8 @@ public class BuildAstVisitor extends asiqlBaseVisitor<ExprNode> {
             case asiqlParser.LESS_THAN -> node = new LessThanNode();
         }
         assert node != null;
-        node.setLeft(visit(ctx.ID()));
-        node.setRight(visit(ctx.const_()));
+        node.setLeft(visit(ctx.left));
+        node.setRight(visit(ctx.right));
         return node;
     }
 }

@@ -20,10 +20,10 @@ public class asiqlParser extends Parser {
 		GREATER_THAN=10, LESS_THAN=11, COMMA=12, QUOTE=13, LBRACKET=14, RBRACKET=15, 
 		ID=16, INT=17, DATE=18, DECIMAL=19, STR=20, WS=21;
 	public static final int
-		RULE_root = 0, RULE_const = 1, RULE_expr = 2;
+		RULE_root = 0, RULE_identifier = 1, RULE_const = 2, RULE_expr = 3;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"root", "const", "expr"
+			"root", "identifier", "const", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -124,10 +124,53 @@ public class asiqlParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(6);
+			setState(8);
 			expr(0);
-			setState(7);
+			setState(9);
 			match(EOF);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class IdentifierContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(asiqlParser.ID, 0); }
+		public IdentifierContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_identifier; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof asiqlListener ) ((asiqlListener)listener).enterIdentifier(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof asiqlListener ) ((asiqlListener)listener).exitIdentifier(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof asiqlVisitor ) return ((asiqlVisitor<? extends T>)visitor).visitIdentifier(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final IdentifierContext identifier() throws RecognitionException {
+		IdentifierContext _localctx = new IdentifierContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_identifier);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(11);
+			match(ID);
 			}
 		}
 		catch (RecognitionException re) {
@@ -303,17 +346,17 @@ public class asiqlParser extends Parser {
 
 	public final ConstContext const_() throws RecognitionException {
 		ConstContext _localctx = new ConstContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_const);
+		enterRule(_localctx, 4, RULE_const);
 		try {
 			int _alt;
-			setState(34);
+			setState(38);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				_localctx = new IntegerConstantContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(9);
+				setState(13);
 				match(INT);
 				}
 				break;
@@ -321,7 +364,7 @@ public class asiqlParser extends Parser {
 				_localctx = new StringConstantContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(10);
+				setState(14);
 				match(STR);
 				}
 				break;
@@ -329,7 +372,7 @@ public class asiqlParser extends Parser {
 				_localctx = new DecimalConstantContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(11);
+				setState(15);
 				match(DECIMAL);
 				}
 				break;
@@ -337,7 +380,7 @@ public class asiqlParser extends Parser {
 				_localctx = new DateConstantContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(12);
+				setState(16);
 				match(DATE);
 				}
 				break;
@@ -345,9 +388,9 @@ public class asiqlParser extends Parser {
 				_localctx = new ArrayIntegerConstantContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(13);
+				setState(17);
 				match(INT);
-				setState(16); 
+				setState(20); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -355,9 +398,9 @@ public class asiqlParser extends Parser {
 					case 1:
 						{
 						{
-						setState(14);
+						setState(18);
 						match(COMMA);
-						setState(15);
+						setState(19);
 						match(INT);
 						}
 						}
@@ -365,7 +408,7 @@ public class asiqlParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(18); 
+					setState(22); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -375,9 +418,9 @@ public class asiqlParser extends Parser {
 				_localctx = new ArrayStringConstantContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(20);
+				setState(24);
 				match(STR);
-				setState(23); 
+				setState(27); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -385,9 +428,9 @@ public class asiqlParser extends Parser {
 					case 1:
 						{
 						{
-						setState(21);
+						setState(25);
 						match(COMMA);
-						setState(22);
+						setState(26);
 						match(STR);
 						}
 						}
@@ -395,7 +438,7 @@ public class asiqlParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(25); 
+					setState(29); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -405,9 +448,9 @@ public class asiqlParser extends Parser {
 				_localctx = new ArrayDecimalConstantContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(27);
+				setState(31);
 				match(DECIMAL);
-				setState(30); 
+				setState(34); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -415,9 +458,9 @@ public class asiqlParser extends Parser {
 					case 1:
 						{
 						{
-						setState(28);
+						setState(32);
 						match(COMMA);
-						setState(29);
+						setState(33);
 						match(DECIMAL);
 						}
 						}
@@ -425,7 +468,7 @@ public class asiqlParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(32); 
+					setState(36); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -527,8 +570,12 @@ public class asiqlParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionExpressionContext extends ExprContext {
+		public IdentifierContext left;
 		public Token function;
-		public TerminalNode ID() { return getToken(asiqlParser.ID, 0); }
+		public ConstContext right;
+		public IdentifierContext identifier() {
+			return getRuleContext(IdentifierContext.class,0);
+		}
 		public ConstContext const_() {
 			return getRuleContext(ConstContext.class,0);
 		}
@@ -562,14 +609,14 @@ public class asiqlParser extends Parser {
 		int _parentState = getState();
 		ExprContext _localctx = new ExprContext(_ctx, _parentState);
 		ExprContext _prevctx = _localctx;
-		int _startState = 4;
-		enterRecursionRule(_localctx, 4, RULE_expr, _p);
+		int _startState = 6;
+		enterRecursionRule(_localctx, 6, RULE_expr, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(46);
+			setState(51);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
@@ -578,9 +625,9 @@ public class asiqlParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(37);
-				match(ID);
-				setState(38);
+				setState(41);
+				((FunctionExpressionContext)_localctx).left = identifier();
+				setState(42);
 				((FunctionExpressionContext)_localctx).function = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 3488L) != 0)) ) {
@@ -591,8 +638,8 @@ public class asiqlParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(39);
-				const_();
+				setState(43);
+				((FunctionExpressionContext)_localctx).right = const_();
 				}
 				break;
 			case T__0:
@@ -600,11 +647,11 @@ public class asiqlParser extends Parser {
 				_localctx = new ParenthesisExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(40);
+				setState(45);
 				match(T__0);
-				setState(41);
+				setState(46);
 				expr(0);
-				setState(42);
+				setState(47);
 				match(T__1);
 				}
 				break;
@@ -613,9 +660,9 @@ public class asiqlParser extends Parser {
 				_localctx = new NegationExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(44);
+				setState(49);
 				match(NOT);
-				setState(45);
+				setState(50);
 				expr(2);
 				}
 				break;
@@ -623,7 +670,7 @@ public class asiqlParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(53);
+			setState(58);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -635,9 +682,9 @@ public class asiqlParser extends Parser {
 					_localctx = new InfixExpressionContext(new ExprContext(_parentctx, _parentState));
 					((InfixExpressionContext)_localctx).left = _prevctx;
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
-					setState(48);
+					setState(53);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(49);
+					setState(54);
 					((InfixExpressionContext)_localctx).conjunction = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !(_la==AND || _la==OR) ) {
@@ -648,12 +695,12 @@ public class asiqlParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(50);
+					setState(55);
 					((InfixExpressionContext)_localctx).right = expr(2);
 					}
 					} 
 				}
-				setState(55);
+				setState(60);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 			}
@@ -672,7 +719,7 @@ public class asiqlParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 2:
+		case 3:
 			return expr_sempred((ExprContext)_localctx, predIndex);
 		}
 		return true;
@@ -686,46 +733,48 @@ public class asiqlParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u00159\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0004"+
-		"\u0001\u0011\b\u0001\u000b\u0001\f\u0001\u0012\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0004\u0001\u0018\b\u0001\u000b\u0001\f\u0001\u0019\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0004\u0001\u001f\b\u0001\u000b\u0001\f"+
-		"\u0001 \u0003\u0001#\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
-		"\u0002\u0003\u0002/\b\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0005"+
-		"\u00024\b\u0002\n\u0002\f\u00027\t\u0002\u0001\u0002\u0000\u0001\u0004"+
-		"\u0003\u0000\u0002\u0004\u0000\u0002\u0003\u0000\u0005\u0005\u0007\b\n"+
-		"\u000b\u0001\u0000\u0003\u0004A\u0000\u0006\u0001\u0000\u0000\u0000\u0002"+
-		"\"\u0001\u0000\u0000\u0000\u0004.\u0001\u0000\u0000\u0000\u0006\u0007"+
-		"\u0003\u0004\u0002\u0000\u0007\b\u0005\u0000\u0000\u0001\b\u0001\u0001"+
-		"\u0000\u0000\u0000\t#\u0005\u0011\u0000\u0000\n#\u0005\u0014\u0000\u0000"+
-		"\u000b#\u0005\u0013\u0000\u0000\f#\u0005\u0012\u0000\u0000\r\u0010\u0005"+
-		"\u0011\u0000\u0000\u000e\u000f\u0005\f\u0000\u0000\u000f\u0011\u0005\u0011"+
-		"\u0000\u0000\u0010\u000e\u0001\u0000\u0000\u0000\u0011\u0012\u0001\u0000"+
-		"\u0000\u0000\u0012\u0010\u0001\u0000\u0000\u0000\u0012\u0013\u0001\u0000"+
-		"\u0000\u0000\u0013#\u0001\u0000\u0000\u0000\u0014\u0017\u0005\u0014\u0000"+
-		"\u0000\u0015\u0016\u0005\f\u0000\u0000\u0016\u0018\u0005\u0014\u0000\u0000"+
-		"\u0017\u0015\u0001\u0000\u0000\u0000\u0018\u0019\u0001\u0000\u0000\u0000"+
-		"\u0019\u0017\u0001\u0000\u0000\u0000\u0019\u001a\u0001\u0000\u0000\u0000"+
-		"\u001a#\u0001\u0000\u0000\u0000\u001b\u001e\u0005\u0013\u0000\u0000\u001c"+
-		"\u001d\u0005\f\u0000\u0000\u001d\u001f\u0005\u0013\u0000\u0000\u001e\u001c"+
-		"\u0001\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000 \u001e\u0001\u0000"+
-		"\u0000\u0000 !\u0001\u0000\u0000\u0000!#\u0001\u0000\u0000\u0000\"\t\u0001"+
-		"\u0000\u0000\u0000\"\n\u0001\u0000\u0000\u0000\"\u000b\u0001\u0000\u0000"+
-		"\u0000\"\f\u0001\u0000\u0000\u0000\"\r\u0001\u0000\u0000\u0000\"\u0014"+
-		"\u0001\u0000\u0000\u0000\"\u001b\u0001\u0000\u0000\u0000#\u0003\u0001"+
-		"\u0000\u0000\u0000$%\u0006\u0002\uffff\uffff\u0000%&\u0005\u0010\u0000"+
-		"\u0000&\'\u0007\u0000\u0000\u0000\'/\u0003\u0002\u0001\u0000()\u0005\u0001"+
-		"\u0000\u0000)*\u0003\u0004\u0002\u0000*+\u0005\u0002\u0000\u0000+/\u0001"+
-		"\u0000\u0000\u0000,-\u0005\u0006\u0000\u0000-/\u0003\u0004\u0002\u0002"+
-		".$\u0001\u0000\u0000\u0000.(\u0001\u0000\u0000\u0000.,\u0001\u0000\u0000"+
-		"\u0000/5\u0001\u0000\u0000\u000001\n\u0001\u0000\u000012\u0007\u0001\u0000"+
-		"\u000024\u0003\u0004\u0002\u000230\u0001\u0000\u0000\u000047\u0001\u0000"+
-		"\u0000\u000053\u0001\u0000\u0000\u000056\u0001\u0000\u0000\u00006\u0005"+
-		"\u0001\u0000\u0000\u000075\u0001\u0000\u0000\u0000\u0006\u0012\u0019 "+
-		"\".5";
+		"\u0004\u0001\u0015>\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000\u0001\u0000\u0001"+
+		"\u0000\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0004\u0002\u0015\b\u0002\u000b"+
+		"\u0002\f\u0002\u0016\u0001\u0002\u0001\u0002\u0001\u0002\u0004\u0002\u001c"+
+		"\b\u0002\u000b\u0002\f\u0002\u001d\u0001\u0002\u0001\u0002\u0001\u0002"+
+		"\u0004\u0002#\b\u0002\u000b\u0002\f\u0002$\u0003\u0002\'\b\u0002\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0003\u00034\b"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0005\u00039\b\u0003\n\u0003"+
+		"\f\u0003<\t\u0003\u0001\u0003\u0000\u0001\u0006\u0004\u0000\u0002\u0004"+
+		"\u0006\u0000\u0002\u0003\u0000\u0005\u0005\u0007\b\n\u000b\u0001\u0000"+
+		"\u0003\u0004E\u0000\b\u0001\u0000\u0000\u0000\u0002\u000b\u0001\u0000"+
+		"\u0000\u0000\u0004&\u0001\u0000\u0000\u0000\u00063\u0001\u0000\u0000\u0000"+
+		"\b\t\u0003\u0006\u0003\u0000\t\n\u0005\u0000\u0000\u0001\n\u0001\u0001"+
+		"\u0000\u0000\u0000\u000b\f\u0005\u0010\u0000\u0000\f\u0003\u0001\u0000"+
+		"\u0000\u0000\r\'\u0005\u0011\u0000\u0000\u000e\'\u0005\u0014\u0000\u0000"+
+		"\u000f\'\u0005\u0013\u0000\u0000\u0010\'\u0005\u0012\u0000\u0000\u0011"+
+		"\u0014\u0005\u0011\u0000\u0000\u0012\u0013\u0005\f\u0000\u0000\u0013\u0015"+
+		"\u0005\u0011\u0000\u0000\u0014\u0012\u0001\u0000\u0000\u0000\u0015\u0016"+
+		"\u0001\u0000\u0000\u0000\u0016\u0014\u0001\u0000\u0000\u0000\u0016\u0017"+
+		"\u0001\u0000\u0000\u0000\u0017\'\u0001\u0000\u0000\u0000\u0018\u001b\u0005"+
+		"\u0014\u0000\u0000\u0019\u001a\u0005\f\u0000\u0000\u001a\u001c\u0005\u0014"+
+		"\u0000\u0000\u001b\u0019\u0001\u0000\u0000\u0000\u001c\u001d\u0001\u0000"+
+		"\u0000\u0000\u001d\u001b\u0001\u0000\u0000\u0000\u001d\u001e\u0001\u0000"+
+		"\u0000\u0000\u001e\'\u0001\u0000\u0000\u0000\u001f\"\u0005\u0013\u0000"+
+		"\u0000 !\u0005\f\u0000\u0000!#\u0005\u0013\u0000\u0000\" \u0001\u0000"+
+		"\u0000\u0000#$\u0001\u0000\u0000\u0000$\"\u0001\u0000\u0000\u0000$%\u0001"+
+		"\u0000\u0000\u0000%\'\u0001\u0000\u0000\u0000&\r\u0001\u0000\u0000\u0000"+
+		"&\u000e\u0001\u0000\u0000\u0000&\u000f\u0001\u0000\u0000\u0000&\u0010"+
+		"\u0001\u0000\u0000\u0000&\u0011\u0001\u0000\u0000\u0000&\u0018\u0001\u0000"+
+		"\u0000\u0000&\u001f\u0001\u0000\u0000\u0000\'\u0005\u0001\u0000\u0000"+
+		"\u0000()\u0006\u0003\uffff\uffff\u0000)*\u0003\u0002\u0001\u0000*+\u0007"+
+		"\u0000\u0000\u0000+,\u0003\u0004\u0002\u0000,4\u0001\u0000\u0000\u0000"+
+		"-.\u0005\u0001\u0000\u0000./\u0003\u0006\u0003\u0000/0\u0005\u0002\u0000"+
+		"\u000004\u0001\u0000\u0000\u000012\u0005\u0006\u0000\u000024\u0003\u0006"+
+		"\u0003\u00023(\u0001\u0000\u0000\u00003-\u0001\u0000\u0000\u000031\u0001"+
+		"\u0000\u0000\u00004:\u0001\u0000\u0000\u000056\n\u0001\u0000\u000067\u0007"+
+		"\u0001\u0000\u000079\u0003\u0006\u0003\u000285\u0001\u0000\u0000\u0000"+
+		"9<\u0001\u0000\u0000\u0000:8\u0001\u0000\u0000\u0000:;\u0001\u0000\u0000"+
+		"\u0000;\u0007\u0001\u0000\u0000\u0000<:\u0001\u0000\u0000\u0000\u0006"+
+		"\u0016\u001d$&3:";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
