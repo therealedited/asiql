@@ -2,8 +2,8 @@ package org.asiql.nodes;
 
 public abstract class InfixExprNode extends ExprNode {
 
-    public ExprNode left;
-    public ExprNode right;
+    private ExprNode left;
+    private ExprNode right;
     public ExprNode getLeft() {
         return left;
     }
