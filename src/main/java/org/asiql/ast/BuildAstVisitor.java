@@ -98,7 +98,7 @@ public class BuildAstVisitor extends asiqlBaseVisitor<ExprNode> {
         assert node != null;
         node.setLeft(visit(ctx.left));
         node.setRight(visit(ctx.right));
-        return super.visitInfixExpression(ctx);
+        return node;
     }
 
     @Override
