@@ -1,8 +1,7 @@
 package org.asiql;
 
 import org.antlr.v4.runtime.*;
-import org.asiql.ast.BuildAstVisitor;
-import org.asiql.nodes.ExprNode;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.asiql.parser.asiqlLexer;
 import org.asiql.parser.asiqlParser;
 
@@ -15,7 +14,12 @@ public class Main {
         lexer.setTokenFactory(new CommonTokenFactory(true));
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         asiqlParser parser = new asiqlParser(tokenStream);
-        ExprNode ast = new BuildAstVisitor().visitRoot(parser.root());
-        System.out.println(ast);
+        parser.setErrorHandler(new BailErrorStrategy());
+        try {
+            String str = new BuildSqlQueryVisitor().visitRoot(parser.root());
+            System.out.println(str);
+        } catch (ParseCancellationException e) {
+            System.out.println("error");
+        }
     }
 }
